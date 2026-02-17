@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
 /* -------------------------
    Register Controller
@@ -103,3 +103,45 @@ export const login = async (req, res) => {
         });
     }
 };
+
+export const getuserProfile = async (req, res) => {
+    const userId = req.user.userId;
+
+
+
+    try {
+        const user = await User.findById(userId).select("-passwordHash");
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found",
+            });
+        }
+
+        return res.status(200).json({
+            user,
+        });
+    } catch (error) {
+        console.error("Get User Profile Error:", error);
+        return res.status(500).json({
+            message: "Internal server error",
+        });
+    }
+}
+
+export const logout = (req, res) => {
+    try {
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "Strict",
+        });
+
+        return res.status(200).json({
+            message: "Logout succesful"
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
+}
