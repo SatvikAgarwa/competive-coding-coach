@@ -34,8 +34,5 @@ const problemSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Useful indexes
-problemSchema.index({ difficulty: 1 });
-problemSchema.index({ topics: 1 });
 
 export default mongoose.model("Problem", problemSchema);

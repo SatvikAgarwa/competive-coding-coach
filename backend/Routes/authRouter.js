@@ -4,10 +4,10 @@ import { Router } from "express";
 import { register, login, logout,getuserProfile } from "../controllers/authController.js";
 
 // 2. Joi Schemas (The rules)
-import { registerUserSchema, loginUserSchema } from "../middleware/AuthValidation.js";
+import { registerUserSchema, loginUserSchema } from "../middleware/Validation.js";
 import { protect } from "../middleware/auth.middleware.js";
 
-const router = Router();
+const authrouter = Router();
 
 const validate = (schema) => (req, res, next) => {
   const { error } = schema.validate(req.body);
@@ -22,12 +22,9 @@ const validate = (schema) => (req, res, next) => {
   next();
 };
 
-router.post("/register", validate(registerUserSchema), register);
+authrouter.post("/register", validate(registerUserSchema), register);
+authrouter.post("/login", validate(loginUserSchema), login);
+authrouter.post("/logout", logout);
+authrouter.get("/me", protect, getuserProfile);
 
-router.post("/login", validate(loginUserSchema), login);
-
-router.post("/logout", logout);
-
-router.get("/me", protect, getuserProfile);
-
-export default router;
+export default authrouter;

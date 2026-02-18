@@ -39,7 +39,4 @@ const userSchema = new mongoose.Schema(
   { timestamps: { createdAt: true, updatedAt: false } }
 );
 
-// Index for faster lookup
-userSchema.index({ email: 1 });
-
 export default mongoose.model("User", userSchema);

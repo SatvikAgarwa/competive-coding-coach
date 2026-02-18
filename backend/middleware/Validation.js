@@ -36,7 +36,7 @@ export const createProblemSchema = Joi.object({
   title: Joi.string().min(3).max(200).required(),
 
   description: Joi.string().required(),
-
+  
   difficulty: Joi.string()
     .valid("Easy", "Medium", "Hard")
     .required(),
