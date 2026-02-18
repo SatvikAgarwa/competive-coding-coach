@@ -44,8 +44,4 @@ const submissionSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Critical indexes
-submissionSchema.index({ userId: 1, createdAt: -1 });
-submissionSchema.index({ problemId: 1 });
-
 export default mongoose.model("Submission", submissionSchema);

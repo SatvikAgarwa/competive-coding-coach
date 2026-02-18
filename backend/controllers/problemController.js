@@ -1,5 +1,5 @@
 import problemModel from "../models/problem.model.js";
-import { generateProblem } from "../api/aiKey.js";
+import { generateProblem } from "../api/problem.js";
 import { createProblemSchema } from "../middleware/Validation.js";
 
 
@@ -7,7 +7,6 @@ export const saveProblem = async (req, res) => {
     try {
         const { title } = req.body;
 
-        // Check if a problem with the same title already exists
         const existingProblem = await problemModel.findOne({
             title: title
         });

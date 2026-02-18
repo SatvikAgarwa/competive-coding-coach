@@ -25,6 +25,5 @@ const hintSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-hintSchema.index({ problemId: 1 });
 
 export default mongoose.model("Hint", hintSchema);
